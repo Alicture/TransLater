@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>Simple example</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
+</head>
+<body>
+<div style="width:100%; margin:0 auto; overflow:auto; _display:inline-block;">
+<div id="source" style="float:left;width:600px;height:640px">
+    <iframe src="https://www.bottomupcs.com/" style="width: 100%;height: 100%"></iframe>
+</div>
+<div id="test-editormd" style="margin-left:605px;height:640px" >
+<!-- {{ mkd }} -->
+</div>
+</div>
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
+<script type="text/javascript">
+    var testEditor;
+
+    $(function () {
+        testEditor = editormd("test-editormd", {
+
+            width: "50%",
+            height: 640,
+            syncScrolling: "single",
+            tex: true,
+            imageUpload: true,
+            path: "{{ url_for('static',filename='editormd/lib/') }}"
+        });
+    });
+</script>
+</body>
+</html>
