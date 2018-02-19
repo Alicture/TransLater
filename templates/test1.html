@@ -2,18 +2,22 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8"/>
-    <title>Simple example</title>
+    <title>TransLater</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
 </head>
 <body>
 <div style="width:100%; margin:0 auto; overflow:auto; _display:inline-block;">
 <div id="source" style="float:left;width:600px;height:640px">
-    <iframe src="https://www.bottomupcs.com/" style="width: 100%;height: 100%"></iframe>
+    <iframe id="tgtbrowser" src="" style="width: 100%;height: 100%"></iframe>
 </div>
 <div id="test-editormd" style="margin-left:605px;height:640px" >
 <!-- {{ mkd }} -->
 </div>
+<div style="margin-top: 1px">
+    <input type="text" id="tgturl" name="tgturl" style="width: 70%;height: 100%"><button name="submitTGT" onclick="url_tgt()">提交</button>
 </div>
+</div>
+
 <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
 <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
 <script type="text/javascript">
@@ -30,6 +34,13 @@
             path: "{{ url_for('static',filename='editormd/lib/') }}"
         });
     });
+    function url_tgt() {
+        var url=$('#tgturl').val();
+        var $iframe = $('#tgtbrowser');
+        if ( $iframe.length ) {
+            $iframe.attr('src',url);
+        }
+    }
 </script>
 </body>
 </html>

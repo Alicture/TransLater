@@ -15,11 +15,17 @@ def transMD(weburl):
 	h2t.body_width = 0
 	markdown = h2t.handle(htmltext)
 	return markdown
-
+'''
+	trans english 2 chinese
+'''
 def transE2C(srcStr):
 	ans=transTX.transTX(srcStr.strip(),'en','zh')
 	return ans
 
+def download(url,Wtstr):
+	f1 = open(url, "wt")
+	f1.write(Wtstr)
+	f1.close()
 
 print(markdown)
 f1 = open("/Users/luozepeng/Desktop/test.md", "wt")
@@ -40,7 +46,3 @@ print(ans)
 time.sleep(5)
 
 
-f1 = open("/Users/luozepeng/Desktop/testtgt.md", "wt")
-f1.write(ans)
-time.sleep(5)
-f1.close()
