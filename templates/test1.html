@@ -36,29 +36,33 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
             imageUpload: true,
             path: "{{ url_for('static',filename='editormd/lib/') }}"
         });
-        var key = 'default_md_key';
+        var key1 = 'default_md_key';
+        var key2 ='url_key';
+        var $iframe = $('#tgtbrowser');
         testEditor.on("load", function(){
-        var content = localStorage.getItem(key);
+        var content = localStorage.getItem(key1);
+        var url = localStorage.getItem(key2);
         if(content){
-            var f = confirm("您上次编辑的文章未提交，是否恢复？内容：\n"+content);
+            var f = confirm("您上次编辑的文章未保存，是否恢复？内容：\n"+content);
             if(f == true){
                 testEditor.setValue(content)
+                $iframe.attr('src',url);
             }
         }
     })
 
     testEditor.on("change", function(){
-        localStorage.setItem(key,this.getValue())
+        localStorage.setItem(key1,this.getValue())
     })
     });
 
     function url_tgt() {
         var url=$('#tgturl').val();
         var $iframe = $('#tgtbrowser');
+        var key2 ='url_key';
         if ( $iframe.length ) {
             $iframe.attr('src',url);
-            contentMD=testEditor.getValue();
-            alert(contentMD);
+            localStorage.setItem(key2,url);
         }
         $.getJSON($SCRIPT_ROOT + '/Transmd', {
         Weburl: url
