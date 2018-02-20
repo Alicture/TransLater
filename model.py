@@ -5,6 +5,7 @@ from flask import Flask, jsonify, render_template, request, Blueprint
 
 from flaskext.markdown import Markdown
 import markdown
+from utils import transMD,transE2C,download
 
 def markdown2html(text):
     return markdown.markdown(text, ['extra'])
@@ -28,6 +29,11 @@ def test_1():
 
 
     return render_template('test1.html', mkd=mkd)
-
+@app.route('/Transmd')
+def trans2MD():
+    Weburl=request.args.get('Weburl',0,type=str)
+    md=transMD(Weburl)
+    cmd=transE2C(md)
+    return jsonify(mdstr=cmd)
 if __name__ == '__main__':
     app.run()

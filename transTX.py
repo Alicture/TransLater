@@ -1,4 +1,3 @@
-# *- coding:utf-8 *-
 from QcloudApi.qcloudapi import QcloudApi
 import random
 import json
@@ -51,3 +50,4 @@ def transTX(srcStr,srcL,tarL):
 	except Exception as e:
 	    import traceback
 	    print('traceback.format_exc():\n%s' % traceback.format_exc())
+transTX('hello', 'en', 'zh')

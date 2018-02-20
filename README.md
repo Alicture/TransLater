@@ -9,6 +9,7 @@
 ## To-do list
 
 - [x] 接入机器翻译API
-- [ ] 网页正文内容翻译
-- [ ] html转MD
-- [ ] Flask具体实现
+- [x] 网页正文内容翻译
+- [x] html转MD
+- [ ] 保存MD文件到本地
+- [ ] Flask具体实现()

@@ -20,6 +20,9 @@
 
 <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
 <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
+<script type=text/javascript>
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
 <script type="text/javascript">
     var testEditor;
 
@@ -33,14 +36,39 @@
             imageUpload: true,
             path: "{{ url_for('static',filename='editormd/lib/') }}"
         });
+        var key = 'default_md_key';
+        testEditor.on("load", function(){
+        var content = localStorage.getItem(key);
+        if(content){
+            var f = confirm("您上次编辑的文章未提交，是否恢复？内容：\n"+content);
+            if(f == true){
+                testEditor.setValue(content)
+            }
+        }
+    })
+
+    testEditor.on("change", function(){
+        localStorage.setItem(key,this.getValue())
+    })
     });
+
     function url_tgt() {
         var url=$('#tgturl').val();
         var $iframe = $('#tgtbrowser');
         if ( $iframe.length ) {
             $iframe.attr('src',url);
+            contentMD=testEditor.getValue();
+            alert(contentMD);
         }
+        $.getJSON($SCRIPT_ROOT + '/Transmd', {
+        Weburl: url
+      }, function(data) {
+        testEditor.setValue(data.mdstr)
+      });
+        
     }
+
 </script>
+
 </body>
 </html>
