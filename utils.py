@@ -23,8 +23,8 @@ def transE2C(srcStr):
 	return ans
 
 
-def download(url,Wtstr):
-	f1 = open(url, "wt")
+def download(Wtstr):
+	f1 = open("./book.md", "wt")
 	f1.write(Wtstr)
 	f1.close()
 

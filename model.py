@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template, request, Blueprint
+# *- coding:utf-8 *-
+from flask import Flask, jsonify, render_template, request, Blueprint, make_response,send_from_directory
 # app=Flask(__name__)
 # from flask_markdown import Markdown
 # Markdown(app)
@@ -6,7 +7,7 @@ from flask import Flask, jsonify, render_template, request, Blueprint
 from flaskext.markdown import Markdown
 import markdown
 from utils import transMD,transE2C,download
-
+import os
 def markdown2html(text):
     return markdown.markdown(text, ['extra'])
 app=Flask(__name__)
@@ -35,5 +36,22 @@ def trans2MD():
     md=transMD(Weburl)
     cmd=transE2C(md)
     return jsonify(mdstr=cmd)
+
+@app.route('/saveMd',methods=["POST"])
+def savemd():
+    Wtstr=request.values.get('MDSTR',0,type=str)
+    download(Wtstr)
+    return 'OK'
+
+@app.route("/download/<filename>", methods=['GET'])
+def download_file(filename):
+    # ��Ҫ֪��2������, ��1�������Ǳ���Ŀ¼��path, ��2���������ļ���(����չ��)
+    directory = os.getcwd()  # �����ڵ�ǰĿ¼
+    
+    response = make_response(send_from_directory(directory, filename, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+    
+    return response
+
 if __name__ == '__main__':
     app.run()

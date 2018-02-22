@@ -6,15 +6,16 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
 </head>
 <body>
-<div style="width:100%; margin:0 auto; overflow:auto; _display:inline-block;">
+<div style="width:100%; margin:; overflow:auto; _display:inline-block;">
 <div id="source" style="float:left;width:600px;height:640px">
-    <iframe id="tgtbrowser" src="" style="width: 100%;height: 100%"></iframe>
+    <iframe name="tgtbrowser" id="tgtbrowser" src="" style="width: 100%;height: 100%" ></iframe>
 </div>
 <div id="test-editormd" style="margin-left:605px;height:640px" >
 <!-- {{ mkd }} -->
 </div>
 <div style="margin-top: 1px">
     <input type="text" id="tgturl" name="tgturl" style="width: 70%;height: 100%"><button name="submitTGT" onclick="url_tgt()">提交</button>
+<a href="/download/book.md" >下载MD文件</a>
 </div>
 </div>
 
@@ -49,10 +50,16 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
                 $iframe.attr('src',url);
             }
         }
+       
     })
 
     testEditor.on("change", function(){
         localStorage.setItem(key1,this.getValue())
+        $.post($SCRIPT_ROOT + '/saveMd', {
+        	'MDSTR': this.getValue()
+	      }, function(data) {
+/* 	        alert('保存成功');
+ */	      });
     })
     });
 
@@ -65,12 +72,30 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
             localStorage.setItem(key2,url);
         }
         $.getJSON($SCRIPT_ROOT + '/Transmd', {
-        Weburl: url
-      }, function(data) {
-        testEditor.setValue(data.mdstr)
-      });
+	        Weburl: url
+	      }, function(data) {
+	        testEditor.setValue(data.mdstr)
+	      });
+        var mdstr= testEditor.getValue();
+        alert(mdstr);
+       	$.post($SCRIPT_ROOT + '/saveMd', {
+       		'MDSTR': mdstr
+	      }, function(data) {
+/* 	        alert('保存成功');
+ */	      });
         
     }
+
+  /*  function transMD(){
+	   url=$('#tgtbrowser').attr('src');
+	   alert(url);
+	   $('#tgturl').val(url);
+	   $.getJSON($SCRIPT_ROOT + '/Transmd', {
+	        Weburl: url
+	      }, function(data) {
+	        testEditor.setValue(data.mdstr)
+	      });
+   } */
 
 </script>
 
