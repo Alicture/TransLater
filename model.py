@@ -45,8 +45,8 @@ def savemd():
 
 @app.route("/download/<filename>", methods=['GET'])
 def download_file(filename):
-    # ��Ҫ֪��2������, ��1�������Ǳ���Ŀ¼��path, ��2���������ļ���(����չ��)
-    directory = os.getcwd()  # �����ڵ�ǰĿ¼
+   
+    directory = os.getcwd()
     
     response = make_response(send_from_directory(directory, filename, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
