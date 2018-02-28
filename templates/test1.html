@@ -44,7 +44,7 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         var content = localStorage.getItem(key1);
         var url = localStorage.getItem(key2);
         if(content){
-            var f = confirm("您上次编辑的文章未保存，是否恢复？内容：\n"+content);
+            var f = confirm("您上次编辑的文章未保存，是否恢复?\n");
             if(f == true){
                 testEditor.setValue(content)
                 $iframe.attr('src',url);
@@ -76,8 +76,8 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	      }, function(data) {
 	        testEditor.setValue(data.mdstr)
 	      });
+
         var mdstr= testEditor.getValue();
-        alert(mdstr);
        	$.post($SCRIPT_ROOT + '/saveMd', {
        		'MDSTR': mdstr
 	      }, function(data) {
@@ -85,17 +85,6 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
  */	      });
         
     }
-
-  /*  function transMD(){
-	   url=$('#tgtbrowser').attr('src');
-	   alert(url);
-	   $('#tgturl').val(url);
-	   $.getJSON($SCRIPT_ROOT + '/Transmd', {
-	        Weburl: url
-	      }, function(data) {
-	        testEditor.setValue(data.mdstr)
-	      });
-   } */
 
 </script>
 
