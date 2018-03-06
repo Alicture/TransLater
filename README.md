@@ -16,3 +16,4 @@
 ## Tip
 * 使用前，先在config.json中设置SecretKEY和SecretID，如何获取腾讯云APIkey看[这里](https://www.cloudbility.com/help/qcloud/access-key.html)
 * 使用到的module: flask-markdown,html2text，请先安装。
+* `python3 run.py`运行程序
